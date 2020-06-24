@@ -8,10 +8,15 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
 		let a = getElementByXpath("(//article[contains(@role,'article')])[1]//a[contains(@href,'/photo/')]//img/@src");
 		let arr = [];
 		for (i=0; i<a.snapshotLength; i++) {
-			arr.push(a.snapshotItem(i).textContent);
+			let oneUrl = a.snapshotItem(i).textContent;
+			let splited = oneUrl.split('?');
+			let baseUrl = splited[0];
+			var getParas = new URLSearchParams(splited[1]);
+			getParas.set("name", "orig");
+			arr.push(baseUrl + '?' + getParas.toString());
 		}
 // 		console.log(arr);
-		sendResponse({dateType: 'urlList', urlList: arr});
+		sendResponse({dataType: 'urlList', urlList: arr, source: window.location.href});
 	} else {
 		sendResponse({}); // Send nothing..
 	}

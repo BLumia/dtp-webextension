@@ -16,5 +16,7 @@
 		"js": ["common_content_script.js"]
 	}
   ],
-	"permissions": ["activeTab", "declarativeContent"]
+	"permissions": [
+		"activeTab", "declarativeContent"
+	]
 }

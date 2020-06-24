@@ -15,6 +15,18 @@ downloadBtn.onclick = function(element) {
 		// Send a request to the content script.
 		chrome.tabs.sendRequest(tab.id, {action: "requestPics"}, function(response) {
 			console.log(response);
+			if (response.dataType == "urlList") {
+				const data = new URLSearchParams();
+				data.append("source", response.source);
+				data.append("urlList", JSON.stringify(response.urlList));
+	
+				fetch('http://localhost:1704/urlList', {
+					method: 'post',
+					body: data,
+				}).then(data => {
+					console.log(data);
+				});
+			}
 		});
 	});
 	
