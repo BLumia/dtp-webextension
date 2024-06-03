@@ -1,22 +1,21 @@
 {
+	"manifest_version": 3,
 	"name": "Download The Pics (WebExtension Client)",
-	"version": "1.0",
-	"manifest_version": 2,
 	"description": "Download The Pics WebExtension Client. You also need the local daemon process to make this extension works",
-	"background": {
-		"scripts": ["background.js"]
+	"version": "2.0",
+	"icons": {
+		"48": "icon.png"
 	},
-	"browser_action": {
-		"default_popup": "popup.html"
+	"permissions": ["activeTab", "declarativeContent"],
+	"action": {
+	    "default_popup": "popup.html",
+		"default_icon": "icon.png"
 	},
 	"content_scripts": [
-	{
-		"matches": ["<all_urls>"],
-		"run_at": "document_start",
-		"js": ["common_content_script.js"]
-	}
-  ],
-	"permissions": [
-		"activeTab", "declarativeContent"
+		{
+			"matches": ["<all_urls>"],
+			"run_at": "document_start",
+			"js": ["common_content_script.js"]
+		}
 	]
 }

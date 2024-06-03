@@ -9,9 +9,9 @@ let download4Btn = document.getElementById('download4');
 // });
 
 function sendActionAndResponse(actionStr) {
-	chrome.tabs.getSelected(null, function(tab) {
+	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 		// Send a request to the content script.
-		chrome.tabs.sendRequest(tab.id, {action: actionStr}, function(response) {
+		chrome.tabs.sendMessage(tabs[0].id, {action: actionStr}, (response) => {
 			console.log(response);
 			if (response.dataType == "urlList") {
 				const data = new URLSearchParams();
@@ -24,6 +24,8 @@ function sendActionAndResponse(actionStr) {
 				}).then(data => {
 					console.log(data);
 				});
+			} else {
+				console.log(response.dataType)
 			}
 		});
 	});

@@ -17,8 +17,7 @@ function twitterXPath(nth, sendResponse) {
 	sendResponse({dataType: 'urlList', urlList: arr, source: window.location.href});
 }
 
-chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
-	
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 	if (request.action == "requestPics") {
 		twitterXPath(1, sendResponse);
 	} else if (request.action == "requestPics2") {
@@ -28,6 +27,6 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
 	} else if (request.action == "requestPics4") {
 		twitterXPath(4, sendResponse);
 	} else {
-		sendResponse({}); // Send nothing..
+		sendResponse({dataType: 'test'}); // Send nothing..
 	}
 });
